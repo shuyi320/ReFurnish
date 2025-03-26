@@ -1,6 +1,15 @@
+import { useLocation } from "react-router-dom";
+
 const Navbar = () => {
+    const location = useLocation();
+
+    // Check if the current page is one where the navbar should be transparent
+    const isTransparent = location.pathname === "/home"; // Example: Transparent on the home page
+
     return (
-        <nav className="fixed top-0 z-50 w-full flex items-center justify-between bg-transparent py-2 px-8 ">
+        <nav
+            className={`top-0 z-50 w-full flex items-center justify-between py-2 px-8 bg-transparent`}
+        >
             {/* Logo Section */}
             <div className="flex items-center">
                 <h1 className="text-[#142F38] text-3xl font-mono font-bold">ReFurnish</h1>
@@ -8,7 +17,7 @@ const Navbar = () => {
 
             {/* Navigation Links */}
             <div>
-                <ul className="flex text-2xl space-x-8">
+                <ul className="flex text-2xl space-x-20">
                     <li className="text-[#142F38] hover:scale-125 transition-transform duration-300 cursor-pointer">Home</li>
                     <li className="text-[#142F38] hover:scale-125 transition-transform duration-300 cursor-pointer">Our Mission</li>
                     <li className="text-[#142F38] hover:scale-125 transition-transform duration-300 cursor-pointer">Contact</li>
