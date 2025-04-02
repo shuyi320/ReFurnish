@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import FurnitureCard from '../components/FurnitureCard';
+import ReportForm from '../components/ReportForm';
 
 const FurniturePage = () => {
+    const [furnitures, setFurnitures] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const data = async () => {
+        setLoading(true);
+        const response = await fetch('http://localhost:3000/api/furnitures');
+        const data = await response.json();
+        setFurnitures(data);
+        setLoading(false);
+    }
+    
     return (
         <div>
             <Navbar />
@@ -27,13 +38,20 @@ const FurniturePage = () => {
                         Furniture Collection
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-col-4 gap-8">
-                        <FurnitureCard />
-                        <FurnitureCard />
-                        <FurnitureCard />
-                        <FurnitureCard />
+                        {furnitures.length > 0 ? furnitures.map((furniture) => (
+                            <FurnitureCard key={furniture.id} furniture={furniture} />
+                        )) : (
+                            <p className="text-xl text-gray-600 text-center col-span-full">
+                                {loading ? "Loading..." : "No furniture available"}
+                            </p>
+                        )}
                         {/* Add more <FurnitureCard /> components as needed */}
                     </div>
                 </section>
+                
+                <button className="bg-[#142E38] text-xl text-white px-6 py-3 rounded-md hover:bg-[#27694d] transition mt-6">
+                    <Link to={'/ReportForm'}>Report a Furniture</Link>
+                </button>
             </main>
         </div>
     );
