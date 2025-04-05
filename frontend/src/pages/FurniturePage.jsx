@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import FurnitureCard from '../components/FurnitureCard';
@@ -7,13 +7,22 @@ import ReportForm from '../components/ReportForm';
 const FurniturePage = () => {
     const [furnitures, setFurnitures] = useState([]);
     const [loading, setLoading] = useState(false);
-    const data = async () => {
-        setLoading(true);
-        const response = await fetch('http://localhost:3000/api/furnitures');
-        const data = await response.json();
-        setFurnitures(data);
-        setLoading(false);
-    }
+    useEffect(() => {
+        const fetchFurnitures = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/api/furnitures'); // Replace with your API endpoint
+                const data = await response.json();
+                console.log('Fetched furnitures:', data);
+                setFurnitures(data);
+            } catch (error) {
+                console.error('Error fetching furnitures:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchFurnitures();
+    }, []);
     
     return (
         <div>
