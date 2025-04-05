@@ -8,8 +8,7 @@ import furnitureRoutes from "./Routes/furnitureRoutes.js";
 // CORS configuration allowing both localhost and 127.0.0.1
 const corsOptions = {
   origin: [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
+    process.env.FRONTEND_URL
   ],
   methods: ["GET", "POST"],
 };
@@ -17,7 +16,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use("/api/furnitures", furnitureRoutes);
 

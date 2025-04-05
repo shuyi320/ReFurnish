@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import FurnitureCard from '../components/FurnitureCard';
 import ReportForm from '../components/ReportForm';
 
+
 const FurniturePage = () => {
     const [furnitures, setFurnitures] = useState([]);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         const fetchFurnitures = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/furnitures'); // Replace with your API endpoint
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/furnitures`); // Replace with your API endpoint
                 const data = await response.json();
                 console.log('Fetched furnitures:', data);
                 setFurnitures(data);
