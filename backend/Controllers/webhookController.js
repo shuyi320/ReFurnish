@@ -1,12 +1,12 @@
 // webhook.js
 import express from 'express';
 import { Webhook } from 'svix';
-import { User } from '../Models/User.js'; 
+import  db  from '../Models/db.js';
 
-const router = express.Router();
-router.use(express.raw({ type: 'application/json' }));
+const {User} = db;
 
-router.post('/', async (req, res) => {
+
+const handleWebhook =  async (req, res) => {
   const secret = process.env.CLERK_WEBHOOK_SECRET;
   const svix = new Webhook(secret);
   const payload = req.body;
@@ -61,6 +61,6 @@ router.post('/', async (req, res) => {
     console.error('🔥 Error handling webhook:', err.message);
     res.status(500).send('Internal error');
   }
-});
+};
 
-export default router;
+export { handleWebhook };
