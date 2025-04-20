@@ -1,7 +1,9 @@
 import { useLocation } from "react-router-dom";
+import { SignInButton, SignedOut, UserButton, useAuth } from "@clerk/clerk-react";
 
 const Navbar = () => {
     const location = useLocation();
+    const { isSignedIn } = useAuth();
 
     // Check if the current page is one where the navbar should be transparent
     const isTransparent = location.pathname === "/home"; // Example: Transparent on the home page
@@ -25,11 +27,20 @@ const Navbar = () => {
             </div>
 
             {/* Login Button */}
-            <div>
-                <button className="bg-[#142E38] text-2xl text-white px-6 py-2 rounded-md hover:bg-[#27694d] transition">
-                    Login
-                </button>
-            </div>
+            {isSignedIn ? (
+                <div className="flex items-center">
+                    <UserButton className="bg-[#142E38] text-white text-lg px-4 py-2 rounded-md hover:bg-[#27694d] transition">
+                    </UserButton>
+                </div>
+            ) : (
+                <SignedOut>
+                    <SignInButton >
+                        <button className="bg-[#142E38] text-white text-lg px-4 py-2 rounded-md hover:bg-[#27694d] transition">
+                            Sign In
+                        </button>
+                    </SignInButton>
+                </SignedOut>
+            )}
         </nav>
     );
 };
