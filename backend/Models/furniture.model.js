@@ -7,7 +7,7 @@ export default (sequelize, DataTypes) => {
             autoIncrement: true,
             primaryKey: true,
         },
-        name: {
+        title: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
@@ -18,18 +18,22 @@ export default (sequelize, DataTypes) => {
             },
         },
         description: {
-            type: DataTypes.TEXT,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         imageUrl: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        location: {
+        address: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        zipcode: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        zipcode: {
+        borough: {   
             type: DataTypes.STRING,
             allowNull: false,
         },

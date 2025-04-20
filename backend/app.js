@@ -25,8 +25,8 @@ const port = process.env.PORT || 3000;
 app.use("/api/furnitures", furnitureRoutes);
 app.use("/api/users", userRoutes);
 
-// // start database
-// await sequelize.sync({ force: false });
+// start database
+await sequelize.sync({ force: false });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
