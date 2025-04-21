@@ -8,6 +8,7 @@ import FurniturePage from './pages/FurniturePage';
 import ReportForm from './components/ReportForm';
 import { useUser } from '@clerk/clerk-react';
 import SyncUser from './utils/syncUser'
+import Detail from './components/Detail'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,9 +23,10 @@ function App() {
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Home />} />
         <Route path="/FurniturePage" element={<FurniturePage />} />
+        <Route path="furniture/:id" element={<Detail/>} />
         <Route path="/ReportForm" element={<ReportForm />} />
       </Routes>
-        
+
     </>
   )
 }

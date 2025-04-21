@@ -12,6 +12,7 @@ const ReportForm = () => {
         imageUrl: null,
         condition: " ",
     });
+    const [showPopup, setShowPopup] = useState(false);
     
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -43,8 +44,12 @@ const ReportForm = () => {
                     reportedBy: user.id,
                 }),
             })
+            setShowPopup(true);
+            setTimeout(() => {
+                setShowPopup(false);
+            }, 3000);
         }catch (err) {
-            console.error("Uable to report furniture: ",err)
+            console.error(err)
         }
     }
 
@@ -93,6 +98,13 @@ const ReportForm = () => {
             <button className="bg-[#142E38]  text-white text-lg py-2 rounded-md hover:bg-[#27694d] transition mt-4">
                 <Link to={'/FurniturePage'}>Back to Furniture Page</Link>
             </button>
+
+            {/* Popup Notification */}
+            {showPopup && (
+                <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-md shadow-md">
+                    Report submitted successfully!
+                </div>
+            )}
         </div>
     );
 }

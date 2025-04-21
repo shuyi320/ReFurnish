@@ -7,7 +7,7 @@ import ReportForm from '../components/ReportForm';
 
 const FurniturePage = () => {
     const [furnitures, setFurnitures] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         const fetchFurnitures = async () => {
             try {
@@ -40,6 +40,10 @@ const FurniturePage = () => {
                             Go to Home
                         </button>
                     </Link>
+                    <button className="bg-[#142E38] text-xl text-white px-6 py-3 rounded-md hover:bg-[#27694d] transition mt-6">
+                        <Link to={'/ReportForm'}>Report a Furniture</Link>
+                    </button>
+                    
                 </section>
 
                 {/* Furniture Cards Section */}
@@ -55,13 +59,9 @@ const FurniturePage = () => {
                                 {loading ? "Loading..." : "No furniture available"}
                             </p>
                         )}
-                        {/* Add more <FurnitureCard /> components as needed */}
                     </div>
                 </section>
                 
-                <button className="bg-[#142E38] text-xl text-white px-6 py-3 rounded-md hover:bg-[#27694d] transition mt-6">
-                    <Link to={'/ReportForm'}>Report a Furniture</Link>
-                </button>
             </main>
         </div>
     );

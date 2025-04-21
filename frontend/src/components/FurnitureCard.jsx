@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const FurnitureCard = ({furniture}) => {
     const { title, address, condition, description, status, zipcode, borough} = furniture;
     return (
@@ -14,7 +16,9 @@ const FurnitureCard = ({furniture}) => {
                 <div className="absolute inset-0 bg-[rgba(58,58,58,0.5)] flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity rounded-md">
                     <p className="text-lg font-semibold">{furniture.title}</p>
                     <button className="bg-[#EFB346] text-white px-4 py-2 rounded-md mt-4 hover:scale-125 duration-300 transition">
-                        View More Details
+                        <Link to={`/furniture/${furniture.id}`}>
+                            View More Details
+                        </Link>
                     </button>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { SignInButton, SignedOut, UserButton, useAuth } from "@clerk/clerk-react";
 
 const Navbar = () => {
@@ -20,7 +20,9 @@ const Navbar = () => {
             {/* Navigation Links */}
             <div>
                 <ul className="flex text-2xl space-x-20">
-                    <li className="text-[#142F38] hover:scale-125 transition-transform duration-300 cursor-pointer">Home</li>
+                    <li className="text-[#142F38] hover:scale-125 transition-transform duration-300 cursor-pointer">
+                        <Link to="/">Home</Link>
+                    </li>
                     <li className="text-[#142F38] hover:scale-125 transition-transform duration-300 cursor-pointer">Our Mission</li>
                     <li className="text-[#142F38] hover:scale-125 transition-transform duration-300 cursor-pointer">Contact</li>
                 </ul>
