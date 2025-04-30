@@ -14,7 +14,7 @@ const FurniturePage = () => {
                 const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/furnitures`); // Replace with your API endpoint
                 const data = await response.json();
                 console.log('Fetched furnitures:', data);
-                setFurnitures(data);
+                setFurnitures(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
             } catch (error) {
                 console.error('Error fetching furnitures:', error);
             } finally {

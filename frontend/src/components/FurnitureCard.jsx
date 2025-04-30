@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 
 const FurnitureCard = ({furniture}) => {
-    const { title, address, condition, description, status, zipcode, borough} = furniture;
+    const { title, address, condition, imageUrl, description, status, zipcode, borough} = furniture;
     return (
         <div className="relative bg-white shadow-md rounded-md p-4 group">
             {/* Image Section */}
             <div className="relative">
                 <img
-                    src="../src/assets/IMG_1225.jpeg"
+                    src={imageUrl || "https://res.cloudinary.com/dc4hmszv6/image/upload/v1745969700/furniture-images/xxdlxpibs41voqpggnpv.jpg"}
                     alt="Furniture"
                     className="w-full h-[300px] object-cover rounded-md"
                 />

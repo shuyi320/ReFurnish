@@ -54,7 +54,7 @@ const Detail = () => {
             {furniture ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mx-20 m-15">
                     <div className="flex gap-4">
-                        <img src={"../src/assets/IMG_1225.jpeg"} alt={furniture.title} className="w-full h-auto max-w-md object-cover" />
+                        <img src={furniture.imageUrl} alt={furniture.title} className="w-full h-auto max-w-md object-cover" />
                     </div>
 
                     <div>
@@ -78,7 +78,14 @@ const Detail = () => {
                             <button onClick={handleClick} className="border border-black px-6 py-2 rounded flex items-center gap-2 cursor-pointer">
                             ➕ Claim
                             </button>
+                            <Link to="/FurniturePage">
+                                <button className="bg-[#142E38] text-white px-6 py-2 rounded hover:bg-[#27694d] transition">
+                                    Back to Furnitures
+                                </button>
+                            </Link>
                         </div>
+                       
+                        
                     </div>
                 </div>
                 
@@ -99,9 +106,9 @@ const Detail = () => {
             )}
                 
             
-            <footer className="bg-gray-800 text-white py-4 text-center">
-                <p>&copy; 2023 Furniture Finder. All rights reserved.</p>
-                <p>Made with ❤️ by Your Name</p>
+            
+            <footer className="bg-gray-800 text-white py-4 bottom-0 text-center">
+                <p>&copy; 2025 ReFurnish. All rights reserved.</p>
             </footer>
         </div>
     );

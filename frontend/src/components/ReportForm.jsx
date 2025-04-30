@@ -9,48 +9,88 @@ const ReportForm = () => {
     const [formData, setFormData] = useState({
         title: " ",
         description: " ",
-        imageUrl: null,
         condition: " ",
     });
+    const [image, setImage] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     
     const handleChange = (e) => {
-        const { name, value, files } = e.target;
-        if (name === "imageUrl") {
-            const file = files[0];
-            setFormData({ ...formData, imageUrl: URL.createObjectURL(file) });
-        } else {
-            setFormData({ ...formData, [name]: value });
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    }
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        console.log(file);
+        if (file) {
+            setImage(file);
         }
     }
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            console.log(address)
-            const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/furnitures/report`, {
+        setSubmitting(true);
+
+        let imageUrl = null;
+        if (image) {
+            const imgForm = new FormData();
+            imgForm.append('image', image);
+
+            try {
+                const imgRes = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/upload`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    title: formData.title,
-                    description: formData.description,
-                    imageUrl: formData.imageUrl,
-                    condition: formData.condition,
-                    address: address,
-                    zipcode: add.postcode,
-                    borough: add.borough,
-                    reportedBy: user.id,
-                }),
-            })
-            setShowPopup(true);
-            setTimeout(() => {
-                setShowPopup(false);
-            }, 3000);
-        }catch (err) {
-            console.error(err)
+                body: imgForm,
+                });
+                const imgData = await imgRes.json();
+                imageUrl = imgData.imageUrl;
+            } catch (err) {
+                console.error('Error uploading image:', err);
+                return;
+            }
         }
+
+        if (imageUrl) {
+            try {
+                console.log(address)
+                console.log(imageUrl)
+                const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/furnitures/report`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        title: formData.title,
+                        description: formData.description,
+                        imageUrl: imageUrl,
+                        condition: formData.condition,
+                        address: address,
+                        zipcode: add.postcode,
+                        borough: add.borough,
+                        reportedBy: user.id,
+                    }),
+                })
+                setSubmitting(true);
+                setShowPopup(true);
+                setTimeout(() => {
+                    setShowPopup(false);
+                }, 3000);
+            }catch (err) {
+                console.error(err)
+            } finally {
+                setSubmitting(false);
+                reset();
+            }
+        }
+    }
+
+    const reset = () => {
+        setFormData({
+            title: " ",
+            description: " ",
+            condition: " ",
+        });
+        setImage(null);
     }
 
     //get the current location of the user
@@ -79,8 +119,8 @@ const ReportForm = () => {
                 <textarea id="description" name="description" className="p-2 border border-gray-300 rounded-md" value={formData.description} onChange={handleChange}></textarea>
 
                 <label htmlFor="image" className="text-lg text-[#142F38]">Image</label>
-                <input type="file" id="image" name="image" accept="image/*" className="p-2 border border-gray-300 rounded-md" value={formData.imageUrl} onChange={handleChange} />
-                <img src={formData.imageUrl} alt="Preview" className="w-32 h-32 object-cover mt-2 shadow-md"  />
+                <input type="file" id="image" name="image" accept="image/*" className="p-2 border border-gray-300 rounded-md"  onChange={handleImageChange} />
+                {image && <img src={URL.createObjectURL(image)} alt="Preview" className="object-cover mt-2 shadow-md"  />}
 
                 <label htmlFor="condition" className="text-lg text-[#142F38]">Condition</label>
                 <select id="condition" name="condition" className="p-2 border border-gray-300 rounded-md" value={formData.condition} onChange={handleChange}>
@@ -92,7 +132,7 @@ const ReportForm = () => {
                 <label htmlFor="Address" className="text-lg text-[#142F38]">Address: {address}</label>
                 
 
-        
+                <button type="button" onClick={reset} className="bg-red-300 text-white text-lg py-2 rounded-md hover:bg-red-600 transition mt-4">Reset</button>
                 <button className="bg-[#142E38] text-white text-lg py-2 rounded-md hover:bg-[#27694d] transition">Submit</button>
             </form>
             <button className="bg-[#142E38]  text-white text-lg py-2 rounded-md hover:bg-[#27694d] transition mt-4">
@@ -103,6 +143,11 @@ const ReportForm = () => {
             {showPopup && (
                 <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-md shadow-md">
                     Report submitted successfully!
+                </div>
+            )}
+
+            {submitting && (<div className="fixed top-4 right-4 bg-yellow-500 text-white p-4 rounded-md shadow-md">
+                    Submitting your report...
                 </div>
             )}
         </div>

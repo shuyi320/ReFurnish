@@ -4,6 +4,7 @@ const app = express();
 import { sequelize } from "./Models/db.js";
 import furnitureRoutes from "./Routes/furnitureRoutes.js";
 import userRoutes from "./Routes/userRoutes.js";
+import uploadRoute from "./Routes/uploadRoute.js";
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -24,6 +25,7 @@ const port = process.env.PORT || 3000;
 
 app.use("/api/furnitures", furnitureRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/upload", uploadRoute);
 
 // start database
 await sequelize.sync({ force: false });
