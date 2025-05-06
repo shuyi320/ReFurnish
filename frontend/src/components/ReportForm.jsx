@@ -124,18 +124,18 @@ const ReportForm = () => {
 
                 <label htmlFor="condition" className="text-lg text-[#142F38]">Condition</label>
                 <select id="condition" name="condition" className="p-2 border border-gray-300 rounded-md" value={formData.condition} onChange={handleChange}>
-                    <option value="good">Good</option>
+                    <option value="good">Excellent</option>
                     <option value="fair">Fair</option>
-                    <option value="poor">Poor</option>
+                    <option value="poor">Needs Repair</option>
                 </select>
 
                 <label htmlFor="Address" className="text-lg text-[#142F38]">Address: {address}</label>
                 
 
-                <button type="button" onClick={reset} className="bg-red-300 text-white text-lg py-2 rounded-md hover:bg-red-600 transition mt-4">Reset</button>
-                <button className="bg-[#142E38] text-white text-lg py-2 rounded-md hover:bg-[#27694d] transition">Submit</button>
+                <button type="button" onClick={reset} className="bg-red-300 cursor-pointer text-white text-lg py-2 rounded-md hover:bg-red-600 transition mt-4">Reset</button>
+                <button className="bg-[#27694d] cursor-pointer text-white text-lg py-2 rounded-md transition">Submit</button>
             </form>
-            <button className="bg-[#142E38]  text-white text-lg py-2 rounded-md hover:bg-[#27694d] transition mt-4">
+            <button className="bg-[#142E38]  text-white text-lg py-2 rounded-md transition mt-4">
                 <Link to={'/FurniturePage'}>Back to Furniture Page</Link>
             </button>
 

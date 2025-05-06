@@ -59,14 +59,17 @@ const claimFurniture = async (req, res) => {
         if (!furniture) {
             return res.status(404).json({ message: "Furniture not found" });
         }
+        if( furniture.status === "claimed") {
+            return res.status(400).json({ message: "Furniture is already claimed" });
+        }
         furniture.claimedBy = claimedBy;
         furniture.status = "claimed";
         await furniture.save();
-        res.status(200).json(furniture);
+        return res.status(200).json({message: "Furniture successfully claimed",});
     }
     catch (error) {
         console.error("Error claiming furniture:", error);
-        res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({ message: "Internal server error" });
     }
 }
 
